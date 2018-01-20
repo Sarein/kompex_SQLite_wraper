@@ -1,0 +1,26 @@
+cmake_minimum_required(VERSION 2.8)
+
+set(PROJECT_NAME kompexSQLiteWrapper)
+
+SET(MY_INSTALL_PREFIX "D:/InstallStash")
+
+project(${PROJECT_NAME})
+
+include_directories(${CMAKE_CURRENT_LIST_DIR}/inc)
+
+file(GLOB_RECURSE SOURCE "*.c" "*.cpp" "*.h" "*.hpp")
+
+add_library(${PROJECT_NAME} ${SOURCE}) 
+
+IF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  SET(CMAKE_INSTALL_PREFIX ${MY_INSTALL_PREFIX} 
+	CACHE PATH "it`s new install_prefix" FORCE)
+ENDIF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+
+
+MESSAGE("${CMAKE_INSTALL_PREFIX} preffix")
+
+install(TARGETS ${PROJECT_NAME} ARCHIVE
+	 DESTINATION ${PROJECT_NAME}/lib) 
+install(DIRECTORY inc/ DESTINATION ${PROJECT_NAME}/include 
+	FILES_MATCHING PATTERN "*.h")
